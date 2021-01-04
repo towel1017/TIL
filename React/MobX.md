@@ -65,3 +65,28 @@ function useStores() {
 
 export default useStores;
 ```
+
+`useContext` API는 파라미터로 전달된 Context의 현재 값을 반환한다.<br>
+거기에 `MobXProviderContext`를 사용하면 mobx-react의 `Provider`가 제공하는 store 객체를 가져올 수 있다.
+
+```js
+import { observer } from "mobx-react";
+import { useStores } from "../useStores";
+
+const UserInfo = observer(() => {
+  const { user } = useStores();
+  return <div>name: {user.name}</div>;
+});
+```
+
+## <strong>mobx를 사용한 React 프로젝트 코드 분석</strong>
+
+### 1. 데코레이터(@) 사용하기
+
+- 데코레이터는 `create-react-app`에서 공식적으로 제공하는 메서드가 아님.<br>
+  그렇기 때문에 적용을 하려면 babel 설정을 만져야 하는데, <br>
+  yarn eject를 사용하는 방법은 매우 복잡하고 패키지 하나하나의 의존성을 신경써야 하므로 <br>`customize-cra`와 `react-app-rewired` 패키지를 이용할 것임.
+
+```
+
+```

@@ -179,3 +179,109 @@ tuple = [1, "a"]; // Error - TS2322
 ```
 
 이 외에도 Enum (열거형) , Object (객체), Unknown(알 수 없음) 등이 존재합니다.
+
+### **유니언(Union) 과 인터섹션(Intersection)**
+
+---
+
+Union은 2개 이상의 타입을 허용하는 경우에 유니언을 사용합니다.<br/>
+`|`(vertical bar)를 통하여 타입을 구분하며, `()`는 선택 사항입니다.
+
+```ts
+let union: string | number;
+union = "Hello world!";
+union = 100;
+union = false; // Error - TS2322: Type 'false' is not assignable to type 'string | number'.
+```
+
+`Intersection`는 `&`를 사용해 2개 이상의 타입을 조합하는 경우 사용합니다.<br>
+인터섹션은 새로운 타입을 생성하지 않고, 기존의 타입을 조합할 수 있기 때문에 유용하지만, 자주 사용하는 방법은 아닙니다.
+
+```ts
+// 기존 타입들이 조합 가능하다면 인터섹션을 활용할 수 있습니다.
+interface IUser {
+  name: string;
+  age: number;
+}
+interface IValidation {
+  isValid: boolean;
+}
+const heropy: IUser = {
+  name: "Heropy",
+  age: 36,
+  isValid: true, // Error -  TS2322: Type '{ name: string; age: number; isValid: boolean; }' is not assignable to type 'IUser'.
+};
+const neo: IUser & IValidation = {
+  name: "Neo",
+  age: 85,
+  isValid: true,
+};
+
+// 혹은 기존 타입(IUser, IValidation)과 비슷하지만, 정확히 일치하는 타입이 없다면 새로운 타입을 생성해야 합니다.
+interface IUserNew {
+  name: string;
+  age: number;
+  isValid: boolean;
+}
+const evan: IUserNew = {
+  name: "Evan",
+  age: 36,
+  isValid: false,
+};
+```
+
+### **함수(Function)**
+
+---
+
+타입스크립트에서 함수를 작성할 땐, 화살표 함수로 작성하며, <br>
+인수(`파라미터`)의 타입과 반환(`리턴 값`) 값의 타입을 입력해야 합니다.
+
+```ts
+let myFunc = (arg1: number, arg2: number): number => {
+  return arg1 + arg2;
+};
+
+//인수도 없고 반환도 없는 경우
+const voidFunc = (): void => {
+  console.log("Hello World");
+};
+```
+
+### **타입 추론**
+
+---
+
+명시적으로 타입 선언이 되어 있지 않은 경우 , 타입스크립트는 타입을 추론하여 제공합니다.<br>
+
+```ts
+let num1 = 12; // 추론을 통해 명시되어 있진 않지만 number 타입으로 인식
+num1 = "Hello"; // TS2322
+```
+
+변수 `num1`을 초기화 하면서 숫자 `12`를 할당하면서 추론을 통해 `Number` 타입으로 추론되었고, <br>
+`Hello`라는 `String` 값은 할당할 수 없기 때문에 에러가 발생합니다
+
+---
+
+타입스크립트가 추론을 하는 경우는 다음과 같습니다.
+<br>
+
+- 초기화된 변수
+- 기본값이 설정된 매개 변수
+- 반환 값이 있는 함수
+
+```ts
+//초기화된 변수 num
+let num = 12; // number 타입으로 추론
+
+//기본값이 설정된 매개 변수 `b`
+const add = (a: number, b: number = 2): number => {
+  //반환 값 (a  + b)가 있는 함수
+  return a + b;
+};
+```
+
+> 타입 추론이 엄격하지 않은 타입 선언을 의미 하는 것은 아닙니다.<br>
+> 따라서 이를 활용해 모든 곳, 모든 변수, 함수 등에 타입을 명시할 필요는 없으며, <br>
+> 많은 경우 더 좋은 코드 가독성을 제공할 수 있습니다.

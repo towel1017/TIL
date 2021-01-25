@@ -26,12 +26,12 @@ MobX 는 크게 3가지로 나눌 수 있다.
 <strong>MobX 라이브러리 설치</strong>
 
 ```shell
-$ yarn add mobx mobx-react
+> yarn add mobx mobx-react
 ```
 
 <strong>MobX 기본 사용 함수</strong>
 
-```js
+```jsx
 import React from "react";
 import { decorate, observable, action, computed } from "mobx";
 import { observer } from "mobx-react";
@@ -51,7 +51,7 @@ Functional Component 에서 지원하는 mobx 대신 React에서 제공하는 `c
 
 - 마이그레이션을 위해서 코드를 수정할 필요는 X, 훅을 사용하는 함수형 컴포넌트를 위한 store를 가져오는 Helper함수를 작성 해야한다.
 
-```js
+```jsx
 import React from "react";
 import { MobXProviderContext } from "mobx-react";
 
@@ -69,7 +69,7 @@ export default useStores;
 `useContext` API는 파라미터로 전달된 Context의 현재 값을 반환한다.<br>
 거기에 `MobXProviderContext`를 사용하면 mobx-react의 `Provider`가 제공하는 store 객체를 가져올 수 있다.
 
-```js
+```jsx
 import { observer } from "mobx-react";
 import { useStores } from "../useStores";
 

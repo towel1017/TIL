@@ -99,3 +99,5 @@ export default React.memo(Child);
 - 리액트의 성능개선 방법에 대해서 설명해주세요.
 
 - 상태 관리에 대해서 설명해주세요.
+
+> **suyeonme 님의 면접 후기를 참고 했습니다.**
